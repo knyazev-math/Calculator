@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <title>Это калькулятор!</title>
+        <link rel="stylesheet" href="calccss.css">
+    </head>
+    <body>
+        Немного неправильно работает клавиша С... 
+        <br> чтобы всё очистить, нужно нажать её, а потом =, 
+        <br>тогда вроде норм)
+        <script>
+            var x1, x2, act, base, t;
+            function init_() {
+                x1 = 0;
+                x2 = 0;
+                act = 1;
+                base = 10;
+                t = false;
+                ans.innerHTML = x2;
+            }
+            function fdigit(x) {
+                if (act == 0) {
+                    init_();
+                }
+                x2 *= 10;
+                x2 += +x;
+                ans.innerHTML = x2.toString(base);
+            }
+
+            function count() {
+                if (act == 0) {
+                    x1 = 0;
+                }
+                if (act == 1) {
+                    x1 += x2;
+                }
+                if (act == 2) {
+                    x1 -= x2;
+                }
+
+                if (act == 3) {
+                    x1 = Math.pow(x1, x2);
+                }
+                if (act == 4) {
+                    x1 /= x2;
+                }
+                if (act == 5){
+                    x1 = Math.log(x1);
+                }
+
+                if (act == 6){
+                    x1 /= 100;
+                }
+
+                if (act == 7) {
+                    x1 *= x2;
+                }
+                
+                if (act == 8){
+                    x1 = Math.log2(x1);
+                }
+                if (act == 9) {
+                    x1 = Math.pow(x1, 1/x2);
+                }
+                if (act == 10) {
+                    x2 = x1;
+                    for(var i = 1; i < x2; i++){
+                        x1 *= i;
+                    }
+                }
+                x2 = 0;
+            }
+
+            function equal() {
+                count();
+                act = 0;
+                t = true;
+                ans.innerHTML = x1.toString(base);
+            }
+
+            function clean(){
+                x2 = 0;
+                x1 = 0;
+            }
+
+            function fact(x) {
+                if (!t) {
+                    count();
+                }
+                t = false;
+                act = x;
+                ans.innerHTML = x1.toString(base);
+            }
+
+            function convert(x) {
+                base = x;
+                if (act == 0) {
+                    ans.innerHTML = x1.toString(base);
+                } else {
+                    ans.innerHTML = x2.toString(base);
+                }
+            }
+
+            function MR() {
+                x2 = x1;
+                ans.innerHTML = x2.toString(base);
+            }
+
+            function MA(x) {
+                x1 += x;
+            }
+
+            function MC(x) {
+                x1 = 0;
+            }
+        </script>
+        <table class="tab">
+            <tr>
+                <p id="ans" class = "res">0</p>
+            </tr>
+            <tr>
+                <td><button onclick="fdigit(1)">1</button></td>
+                <td><button onclick="fdigit(2)">2</button></td>
+                <td><button onclick="fdigit(3)">3</button></td>
+                <td><button onclick="fact(1)">+</button></td>
+                <td><button onclick="equal()">=</button></td> 
+                
+            </tr>
+            <tr>
+                <td><button onclick="fdigit(4)">4</button></td>
+                <td><button onclick="fdigit(5)">5</button></td>
+                <td><button onclick="fdigit(6)">6</button></td>
+                <td><button onclick="fact(2)">-</button></td>
+                <td><button onclick="fact(3)">^</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="fdigit(7)">7</button></td>
+                <td><button onclick="fdigit(8)">8</button></td>
+                <td><button onclick="fdigit(9)">9</button></td>
+                <td><button onclick="fact(4)">/</button></td>
+                <td><button onclick="fact(5)">ln</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="clean">C</button></td>
+                <td><button onclick="fdigit(0)">0</button></td>
+                <td><button onclick="fact(6)">%</button></td>
+                <td><button onclick="fact(7)">*</button></td>
+                <td><button onclick="fact(8)">lg</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="convert(2)">2</button></td>
+                <td><button onclick="convert(8)">8</button></td>
+                <td><button onclick="convert(10)">10</button></td>
+                <td><button onclick="convert(16)">16</button></td>
+                <td><button onclick="fact(9)">x^(1/y)</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="MC()">MC</button></td>
+                <td><button onclick="MR()">MR</button></td>
+                <td><button onclick="MA(1)">M+</button></td>
+                <td><button onclick="MA(-1)">M-</button></td>
+                <td><button onclick="fact(10)">x!</button></td>
+            </tr>
+        </table>
+        <script>
+            init_();
+            addEventListener("keypress", function(event) {
+                var symb = parseInt(String.fromCharCode(event.charCode));
+                fdigit(symb);
+            });
+        </script>
+    </body>
+</html>
+
+

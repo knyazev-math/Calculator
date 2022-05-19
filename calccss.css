@@ -1,0 +1,24 @@
+
+body {
+  padding-left: 70vh;
+}
+
+
+
+button {
+        width: 60px;
+        height: 60px;
+        background: #fc0;
+        display: inline-block;
+        text-align: center;
+        line-height: 60px;
+        user-select: none;
+}
+
+.res{
+  margin-left: 2px;
+  width: 313px;
+  height: 60px;
+  border: 2px solid;
+  font-size: 50px;
+}
